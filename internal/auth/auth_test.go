@@ -26,7 +26,7 @@ func TestGetAPIKey(t *testing.T) {
 	tests := []test{
 		{input: header1, errors: nil, want: splitAuthHeader[1]},
 		{input: header2, errors: errors.New("malformed authorization header"), want: ""},
-		{input: header3, errors: ErrNoAuthHeaderIncluded, want: "Test"},
+		{input: header3, errors: ErrNoAuthHeaderIncluded, want: ""},
 	}
 
 	for _, tc := range tests {
