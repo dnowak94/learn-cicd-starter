@@ -30,4 +30,4 @@ jobs:
       - name: Go check formatting
         run: (test -z $(go fmt ./...))
       - name: Static Check
-        run: (test -z $(staticcheck ./...))
+        run: (test -z "$(staticcheck ./...)")
