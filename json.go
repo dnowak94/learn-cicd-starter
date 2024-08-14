@@ -27,7 +27,7 @@ func respondWithJSON(w http.ResponseWriter, code int, payload interface{}) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(code)
-	code, err = w.Write(dat)
+	_, err = w.Write(dat)
 	if err != nil {
 		log.Fatalf("sending Response failed with error: %s", err)
 	}
