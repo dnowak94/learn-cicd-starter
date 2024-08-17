@@ -1,0 +1,44 @@
+pipeline {
+    agent {
+        docker {
+            image 'golang:1.23.0-alpine3.20'
+        }
+    }
+    stages {
+        stage('set up go') {
+            steps {
+                sh 'go version'
+            }
+        }
+        stage('Install staticcheck') {
+            steps {
+                sh 'go install honnef.co/go/tools/cmd/staticcheck@latest'
+            }
+        }
+        stage('Go check formatting') {
+            steps {
+                sh 'test -z $(go fmt ./...)'
+            }
+        }
+        stage('static check') {
+            steps {
+                sh 'test -z "$(staticcheck ./...)'
+            }
+        }
+        stage('Go test') {
+            steps {
+                sh 'go test -cover ./...'
+            }
+        }
+        stage('Install gosec') {
+            steps {
+                sh 'go install github.com/securego/gosec/v2/cmd/gosec@latest'
+            }
+        }
+        stage('gosec check') {
+            steps {
+                sh 'gosec ./..'
+            }
+        }
+    }
+}
