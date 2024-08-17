@@ -1,0 +1,15 @@
+pipeline {
+    agent {
+        docker {
+            image 'golang:1.23.0-alpine3.20'
+        }
+    }
+    stages {
+        stage('setup go') {
+            sh 'go version'
+        }
+        stage('build the app using buildscript') {
+            sh './scripts/buildprod.sh'
+        }
+    }
+}
